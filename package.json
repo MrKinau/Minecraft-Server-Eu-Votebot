@@ -1,0 +1,16 @@
+{
+  "name": "cxn-votebot",
+  "version": "1.0.0",
+  "description": "Votes for CXN on minecraft-server.eu",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord-webhook-node": "^1.1.8",
+    "puppeteer": "^10.2.0"
+  }
+}
