@@ -30,13 +30,14 @@ async function vote(minecraftName, serverId) {
         const text = await page.evaluate(alert => alert.textContent, alert);
 
         console.log(text);
+
+        return text;
     } catch(e) {
         return e;
     } finally {
         await browser.close();
     }
-
-    return text;
+    return null;
 }
 
 async function sendDiscordMessage(webhook, message, minecraftName) {
