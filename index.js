@@ -42,13 +42,13 @@ async function vote(minecraftName, serverId) {
 
 async function sendDiscordMessage(webhook, message, minecraftName) {
     var embed;
-    if (message instanceof String) {
+    if ((typeof message === 'string' || message instanceof String) && message.includes('successfully')) {
         embed = new MessageBuilder()
             .setTitle('Voted for: ' + minecraftName)
             .setAuthor('Vote-Bot', 'https://dl.kinau.systems/loading.gif')
             .setColor('#00b0f4')
             .setDescription(message);
-    } else if (message instanceof Error) {
+    } else if (typeof message === 'error' || message instanceof Error) {
         embed = new MessageBuilder()
             .setTitle('Could not vote for: ' + minecraftName)
             .setAuthor('Vote-Bot', 'https://dl.kinau.systems/loading.gif')
@@ -59,7 +59,7 @@ async function sendDiscordMessage(webhook, message, minecraftName) {
             .setTitle('Could not vote for: ' + minecraftName)
             .setAuthor('Vote-Bot', 'https://dl.kinau.systems/loading.gif')
             .setColor('#ffbaba')
-            .setDescription("unknown error:\n " + message);
+            .setDescription("Unknown error:\n " + message);
     }
      
     webhook.send(embed);
