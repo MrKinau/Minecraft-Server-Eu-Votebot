@@ -9,17 +9,19 @@ function sleep(ms) {
 }
 
 async function vote(minecraftName, serverId) {
-    const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
+    const browser = await puppeteer.launch({headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox']});
     try {
         const page = await browser.newPage();
         await page.goto('https://minecraft-server.eu/vote/index/' + serverId + '/' + minecraftName);
 
         console.log('Started voting, waiting for drunken cow…');
 
-        await page.waitForSelector('#playername', {visible: true});
+        await page.waitForSelector('button[mode="primary"]', {visible: true});
         await sleep(Math.floor(Math.random() * 1500) + 500);
 
         await page.waitForSelector('#captcha', {visible: true});
+        page.click('button[mode="primary"]');
+        await sleep(Math.floor(Math.random() * 150) + 200);
         page.click('#captcha');
 
         console.log('Voted, waiting for response…');
