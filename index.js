@@ -16,11 +16,15 @@ async function vote(minecraftName, serverId) {
 
         console.log('Started voting, waiting for drunken cow…');
 
-        await page.waitForSelector('button[mode="primary"]', {visible: true});
+        await page.waitForSelector('#playername', {visible: true});
+        try {
+            await page.waitForSelector('button[mode="primary"]', {visible: true});
+            page.click('button[mode="primary"]');
+        } catch(e) {}
         await sleep(Math.floor(Math.random() * 1500) + 500);
 
         await page.waitForSelector('#captcha', {visible: true});
-        page.click('button[mode="primary"]');
+
         await sleep(Math.floor(Math.random() * 150) + 200);
         page.click('#captcha');
 
