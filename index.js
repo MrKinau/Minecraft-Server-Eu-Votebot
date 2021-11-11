@@ -9,9 +9,14 @@ function sleep(ms) {
 }
 
 async function vote(minecraftName, serverId) {
-    const browser = await puppeteer.launch({headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox']});
+    let browser;
+    if (config.chromiumPath.includes('/'))
+        browser = await puppeteer.launch({executablePath: config.chromiumPath, headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox']});
+    else
+        browser = await puppeteer.launch({headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox']});
     try {
         const page = await browser.newPage();
+        await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36');
         await page.goto('https://minecraft-server.eu/vote/index/' + serverId + '/' + minecraftName);
 
         console.log('Started voting, waiting for drunken cow…');
